@@ -1,0 +1,11 @@
+resources:
+  apps:
+    sql_agent_api:
+      name: "sql-agent-binance-api-${bundle.target}"
+      description: "API FastAPI delgada que llama al serving endpoint del agente"
+      source_code_path: ../src/api
+      resources:
+        - name: serving-endpoint
+          serving_endpoint:
+            name: ${var.serving_endpoint_name}
+            permission: CAN_QUERY

@@ -1,0 +1,18 @@
+# Topes explicitos (<...) para que pip no intente resolver contra LangChain 1.x
+# (release reciente con cambios de API grandes) y se cuelgue haciendo backtracking.
+mlflow>=2.18.0,<3.0.0
+langchain>=0.3.0,<0.4.0
+langchain-core>=0.3.0,<0.4.0
+langchain-community>=0.3.0,<0.4.0
+
+# Paquete correcto y vigente para ChatDatabricks (langchain-databricks quedo
+# deprecado y fue reemplazado por este).
+databricks-langchain>=0.1.0,<0.5.0
+
+databricks-sql-connector>=3.1.0
+databricks-sdk>=0.28.0
+fastapi>=0.111.0
+uvicorn>=0.30.0
+requests>=2.32.0
+pydantic>=2.7.0
+python-dotenv>=1.0.0

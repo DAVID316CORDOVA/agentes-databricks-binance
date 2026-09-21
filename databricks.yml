@@ -1,0 +1,50 @@
+bundle:
+  name: agentes-databricks-binance
+
+include:
+  - resources/*.yml
+
+variables:
+  catalog:
+    description: Catálogo Unity Catalog donde vive la tabla y se registra el modelo
+    default: dbw_fintech_fdcg01
+  schema:
+    description: Schema Unity Catalog
+    default: gold
+  model_name:
+    description: Nombre del registered model en UC (sin catálogo/schema)
+    default: sql_agent_binance
+  serving_endpoint_name:
+    description: Nombre del endpoint de Model Serving (se prefija por target más abajo)
+    default: sql-agent-binance
+  llm_endpoint:
+    description: Foundation Model endpoint pay-per-token a usar como LLM
+    default: databricks-meta-llama-3-3-70b-instruct
+  prod_service_principal:
+    description: Application ID del service principal de prod (el mismo del proyecto Kafka)
+    default: "TODO-mismo-sp-application-id-que-kafka-project"
+
+# --- Mismo patrón que kafka-databricks-streaming-pipeline: dev/prod, ---
+# --- service principal en prod, permisos UC explícitos por target.   ---
+targets:
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host: https://adb-XXXXXXXXXXXX.XX.azuredatabricks.net  # TODO: mismo host que tu proyecto Kafka
+    variables:
+      serving_endpoint_name: dev-sql-agent-binance
+    run_as:
+      user_name: ${workspace.current_user.userName}
+
+  prod:
+    mode: production
+    workspace:
+      host: https://adb-XXXXXXXXXXXX.XX.azuredatabricks.net  # TODO: ajusta si prod usa otro workspace
+    variables:
+      serving_endpoint_name: prod-sql-agent-binance
+    run_as:
+      service_principal_name: ${var.prod_service_principal}  # TODO: mismo SP que usas en el proyecto Kafka
+    permissions:
+      - level: CAN_MANAGE
+        service_principal_name: ${var.prod_service_principal}

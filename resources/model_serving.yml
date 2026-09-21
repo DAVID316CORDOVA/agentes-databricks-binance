@@ -1,0 +1,22 @@
+resources:
+  model_serving_endpoints:
+    sql_agent_endpoint:
+      name: ${var.serving_endpoint_name}
+      config:
+        served_entities:
+          - entity_name: ${var.catalog}.${var.schema}.${var.model_name}
+            # TODO: bump manual al principio; el job register_agent_model
+            # (ver jobs.yml) puede automatizar esto leyendo la última versión
+            # vía Databricks SDK antes de correr `bundle deploy`.
+            entity_version: "1"
+            workload_size: Small
+            scale_to_zero_enabled: true
+        traffic_config:
+          routes:
+            - served_model_name: ${var.model_name}-1
+              traffic_percentage: 100
+      tags:
+        - key: project
+          value: agentes-databricks-binance
+        - key: owner
+          value: ${workspace.current_user.userName}

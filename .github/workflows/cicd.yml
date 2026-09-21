@@ -1,0 +1,49 @@
+name: CI/CD - agentes-databricks-binance
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+env:
+  DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+  # Mismo patrón que kafka-databricks-streaming-pipeline: auth por service
+  # principal (client id/secret) via OAuth M2M, no PAT.
+  DATABRICKS_CLIENT_ID: ${{ secrets.DATABRICKS_CLIENT_ID }}
+  DATABRICKS_CLIENT_SECRET: ${{ secrets.DATABRICKS_CLIENT_SECRET }}
+
+jobs:
+  validate:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: databricks/setup-cli@main
+      - name: Validate bundle (dev)
+        run: databricks bundle validate -t dev
+
+  deploy-dev:
+    if: github.event_name == 'pull_request'
+    needs: validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: databricks/setup-cli@main
+      - name: Deploy to dev
+        run: databricks bundle deploy -t dev
+      - name: Register model + refresh serving endpoint (dev)
+        run: databricks bundle run register_agent_model -t dev
+
+  deploy-prod:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: databricks/setup-cli@main
+      - name: Validate bundle (prod)
+        run: databricks bundle validate -t prod
+      - name: Deploy to prod
+        run: databricks bundle deploy -t prod
+      - name: Register model + refresh serving endpoint (prod)
+        run: databricks bundle run register_agent_model -t prod
