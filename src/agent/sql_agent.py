@@ -122,6 +122,7 @@ def build_chain():
     sql_gen = SQL_GEN_PROMPT | llm | StrOutputParser()
 
     generate_and_execute = (
+        
         RunnablePassthrough.assign(raw_sql=sql_gen) | RunnableLambda(_execute_step)
     )
 

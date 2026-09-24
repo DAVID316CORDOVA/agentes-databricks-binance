@@ -1,0 +1,20 @@
+RSI (Indice de Fuerza Relativa)
+El RSI mide la velocidad y magnitud de los cambios de precio recientes, en una escala de 0 a 100. Se calcula sobre un periodo tipico de 14 velas. Un valor por encima de 70 se interpreta como sobrecompra (posible reversion a la baja). Un valor por debajo de 30 se interpreta como sobreventa (posible reversion al alza). Es un indicador de momentum, no predice el precio futuro con certeza, solo mide la fuerza del movimiento actual.
+
+Medias Moviles (Moving Averages)
+Una media movil simple (SMA) es el promedio del precio de cierre de las ultimas N velas. Una media movil exponencial (EMA) da mas peso a los precios recientes, reaccionando mas rapido a cambios. Se usan comunmente pares como EMA de 12 y 26 periodos para detectar cruces: cuando la media corta cruza por encima de la larga se considera una senal alcista (golden cross); cuando cruza por debajo, bajista (death cross).
+
+Velas Japonesas (Candlesticks)
+Cada vela representa un periodo de tiempo fijo (ej. 1 minuto) y muestra cuatro precios: apertura (open), cierre (close), maximo (high) y minimo (low). Una vela verde/blanca indica que el cierre fue mayor que la apertura (presion compradora). Una vela roja/negra indica lo contrario. El cuerpo de la vela es la distancia entre open y close; las mechas (wicks) muestran los extremos alcanzados en el periodo.
+
+Soporte y Resistencia
+Un nivel de soporte es un precio donde historicamente la demanda ha sido suficiente para detener una caida. Una resistencia es un precio donde la oferta ha detenido subidas. Cuando el precio rompe una resistencia con volumen alto, ese nivel suele convertirse en un nuevo soporte (y viceversa). Son niveles psicologicos, no leyes fisicas: pueden romperse.
+
+MACD (Convergencia/Divergencia de Medias Moviles)
+El MACD es la diferencia entre dos EMAs (tipicamente 12 y 26 periodos). Se grafica junto a una "linea de senal" (EMA de 9 periodos del MACD mismo). Cuando el MACD cruza por encima de su linea de senal, se interpreta como senal alcista; por debajo, bajista. El histograma del MACD muestra visualmente la distancia entre ambas lineas.
+
+Bandas de Bollinger
+Consisten en una media movil central (tipicamente SMA de 20 periodos) mas dos bandas, una por encima y otra por debajo, ubicadas a una distancia de 2 desviaciones estandar del precio. Cuando las bandas se estrechan, indica baja volatilidad (posible movimiento fuerte proximo). Cuando el precio toca la banda superior repetidamente, algunos traders lo interpretan como sobrecompra; tocar la banda inferior, sobreventa.
+
+Volumen
+El volumen mide la cantidad de un activo negociado en un periodo. Un movimiento de precio acompanado de alto volumen se considera mas confiable/sostenible que uno con bajo volumen. Divergencias entre precio y volumen (precio sube pero volumen cae) a veces anticipan reversiones.
